@@ -1,6 +1,0 @@
-<?php
-require("login.php");
-
-
-
-?>
