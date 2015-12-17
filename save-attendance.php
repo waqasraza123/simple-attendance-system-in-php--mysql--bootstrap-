@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
 include ("nav.php");
-=======
->>>>>>> a0d5860fa5408103ce79b8b6fa9ab23730e6f54f
 require("db-connect.php");
 
 $query = "SELECT * FROM user WHERE role='student'";
@@ -26,30 +23,19 @@ if(isset($_POST['formData'])) {
         setcookie('sessionCount', ++$sessionCount);
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> a0d5860fa5408103ce79b8b6fa9ab23730e6f54f
     parse_str($_POST['formData'], $searcharray);
     //print_r($searcharray);
     //print_r($_POST);
 
-<<<<<<< HEAD
         for ($i = 0 ; $i < sizeof($searcharray) ; $i++){
             setcookie("checkloop", $i);
-=======
-        for ($i = 0 ; $i <= sizeof($searcharray) ; $i++){
->>>>>>> a0d5860fa5408103ce79b8b6fa9ab23730e6f54f
             $name = $searcharray['name'][$i];
             $email=   $searcharray['email'][$i];
             $class =  $searcharray['class'][$i];
             $present=  ($searcharray['present'][$i]);
-<<<<<<< HEAD
             if(isset($_COOKIE['sessionVal'])){
                 $sessionVal = $_COOKIE['sessionVal'];
             }
-=======
->>>>>>> a0d5860fa5408103ce79b8b6fa9ab23730e6f54f
 
             //get class id
             $class_query = "SELECT * FROM class WHERE name='".$class."'";
@@ -75,15 +61,11 @@ if(isset($_POST['formData'])) {
                 }
             }
 
-<<<<<<< HEAD
             //insert or update the record
             $query = "INSERT INTO attendance VALUES ( '".$class_id_fin."', '".$student_id_fin."' , '".$present."','".$sessionVal."','comment')
              ON DUPLICATE KEY UPDATE isPresent='".$present."'";
 
             print_r($query);
-=======
-            $query = "INSERT INTO attendance VALUES ( '".$class_id_fin."', '".$student_id_fin."' , '".$present."','".$sessionCount."','comment')";
->>>>>>> a0d5860fa5408103ce79b8b6fa9ab23730e6f54f
 
             if(mysqli_query($conn, $query)){
                 echo "success";
