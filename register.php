@@ -44,7 +44,7 @@
                             <label for="role">Role:</label>
                             <select class="form-control" name="role">
                                 <option value="student">Student</option>
-                                <option rel="teacher">Teacher</option>
+                                <option value="teacher">Teacher</option>
                             </select>
                         </div>
 
