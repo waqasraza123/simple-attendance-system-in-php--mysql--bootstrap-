@@ -56,7 +56,7 @@ $result = $conn->query($query);
             ?>
 
             </tbody>
-            <div class="bg-success"><h2><?php echo (($studentAttendance/$totalAttendance)*100)."%";?></h2></div>
+            <div class="bg-success"><h2><?php echo (empty($totalAttendance)?"100":($studentAttendance/$totalAttendance*100))."%";?></h2></div>
 
         </table>
     </div>
