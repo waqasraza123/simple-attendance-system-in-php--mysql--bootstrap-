@@ -1,3 +1,4 @@
-#attendanceForm input[type="text"] {
-    border: 0px;
+input[readonly="readonly"] {
+    border:0px;
+    background-color:transparent;
 }
