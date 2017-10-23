@@ -11,8 +11,7 @@ Here are the steps go get it working.
       `studentid` int NOT NULL,
       `classid` int NOT NULL,
       `session` int NOT NULL,
-      `ispresent` int NOT NULL,
-      PRIMARY KEY (studentid)
+      `ispresent` int NOT NULL
     );
 
     CREATE TABLE `class` (

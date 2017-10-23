@@ -1,5 +1,5 @@
 <?php
-include ("nav.php");
+//include ("nav.php");
 require("db-connect.php");
 
 $query = "SELECT * FROM user WHERE role='student'";
@@ -13,7 +13,6 @@ if(isset($_COOKIE['sessionCount'])){
     $sessionCount = $_COOKIE['sessionCount'];
 }
 
-
 //save record to db
 if(isset($_POST['formData'])) {
 
@@ -24,15 +23,15 @@ if(isset($_POST['formData'])) {
     }
 
     parse_str($_POST['formData'], $searcharray);
-    //print_r($searcharray);
+    //print_r($searcharray);die;
     //print_r($_POST);
 
-        for ($i = 0 ; $i < sizeof($searcharray) ; $i++){
-            setcookie("checkloop", $i);
-            $name = $searcharray['name'][$i];
-            $email=   $searcharray['email'][$i];
-            $class =  $searcharray['class'][$i];
-            $present=  ($searcharray['present'][$i]);
+        //for ($i = 0 ; $i < sizeof($searcharray) ; $i++){
+        //    setcookie("checkloop", $i);
+            $name = $searcharray['name'][0];
+            $email=   $searcharray['email'][0];
+            $class =  $searcharray['class'][0];
+            $present= $searcharray['present'][0];
             if(isset($_COOKIE['sessionVal'])){
                 $sessionVal = $_COOKIE['sessionVal'];
             }
@@ -45,7 +44,7 @@ if(isset($_POST['formData'])) {
                 echo "I am here";
                 while($class_id1 = $class_id->fetch_assoc()){
                     $class_id_fin = $class_id1['id'];
-                    //echo $class_id['id'];
+                    echo $class_id['id'];
                 }
             }
             else{
@@ -68,12 +67,11 @@ if(isset($_POST['formData'])) {
             print_r($query);
 
             if(mysqli_query($conn, $query)){
-                echo "success";
+                echo json_encode(array('status' => 'success', 'message' => 'Attendance added!'));
+            } else{
+                echo json_encode(array('status' => 'error', 'message' => 'You have an error'));
+                //echo json_encode(array('status' => 'fail', 'message' => 'Error: ' . $query . '<br>' . mysqli_error($conn)));
             }
-            else{
-                echo "Error: " . $query . "<br>" . mysqli_error($conn);
-            }
-        }
-
+        //}
     $conn->close();
 }
