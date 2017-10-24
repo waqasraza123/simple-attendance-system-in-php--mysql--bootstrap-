@@ -11,7 +11,7 @@ $errmsg = '';
 if(isset($_POST['login']) && isset($_POST['email']) && !empty($_POST['email'])){
 
     $email = $_POST['email'];
-    $query = "SELECT * FROM user WHERE email='".$email."'";
+    $query = "SELECT * FROM user WHERE email='".$email."' AND role='teacher';";
 
     $result = $conn->query($query);
 
@@ -45,20 +45,23 @@ if(isset($_POST['login']) && isset($_POST['email']) && !empty($_POST['email'])){
 ?>
 <form method="post" action="<?php echo($_SERVER['PHP_SELF'])?>">
     <div class="form-group">
-        <div class="row" style="margin:0 auto;">
-            <div class="col-md-4">
-            <label for="email"> Email </label><br>
+        <div class="row">
+          <div class="col-md-6">
                 <?php
                 if (!empty($errmsg)) {
-                    echo '<div class="alert alert-danger">';
+                echo '<div class="alert alert-danger" role="alert">';
+                echo '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> ';
+                echo '<span class="sr-only">Error:</span>';
                     echo '<strong>' . $errmsg .'</strong>';
                     echo '</div>';
                 }
                 ?>
-                <input type="email" name="email" id="email" class="form-control" required placeholder="username@gmail.com">
-                <input type="submit" name="login" class="btn btn-primary" value="Login">
-            </div>
-        </div>
+            <div class="input-group">
+                <input type="email" name="email" id="email" class="form-control" required placeholder="Email address">
+                <span class="input-group-btn"><input type="submit" name="login" class="btn btn-primary" value="Login"></span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-md-6 -->
+        </div><!-- /.row -->
     </div>
 </form>
 <?php
