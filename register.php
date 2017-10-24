@@ -2,6 +2,19 @@
 $pageTitle = 'Register';
 include('header.php');
 require("db-connect.php");
+if(!isset($_COOKIE['teacher'])){
+    $query = "SELECT NULL FROM user WHERE class='administrator' LIMIT 1";
+    $result = mysqli_query($conn, $query);
+    $firstAccess = (mysqli_num_rows($result) == 0);
+    if (!$firstAccess) {
+        echo 'Only teachers can create new teachers or students.';
+        $conn->close();
+        include('footer.php');
+        exit;
+    }
+} else {
+    $firstAccess = false;
+}
 ?>
 <form method="post" action="<?php echo($_SERVER['PHP_SELF'])?>">
     <div class="form-group">
@@ -13,13 +26,20 @@ require("db-connect.php");
         <label for="email"> Email </label>
         <input type="email" name="email" class="form-control" placeholder="username@gmail.com" required>
     </div>
-
+    <?php if ($firstAccess) { ?>
+        <div class="form-group">
+            <label for="role">Role:</label><br>
+             Administrator
+            <input type="hidden" name="role" value="teacher">
+            <input type="hidden" name="class" value="Administrator">
+        </div>
+    <?php } else { ?>
     <div class="form-group">
         <label for="class">Class:</label>
         <select class="form-control" name="class">
         <?php
             // Get list of available classes.
-            $query = "SELECT * FROM class";
+                $query = "SELECT * FROM class ORDER BY name";
             $classes = mysqli_query($conn, $query);
             if($classes){ 
                 while($class = $classes->fetch_assoc()){
@@ -39,8 +59,8 @@ require("db-connect.php");
             <option value="teacher">Teacher</option>
         </select>
     </div>
-
-    <input type="submit" name="register" class="btn btn-danger" value="Register">
+    <?php } ?>
+    <input type="submit" name="register" class="btn btn-primary" value="Save">
 </form>
 <?php
 if(isset($_POST['register']) && !empty($_POST['email'])){
@@ -57,7 +77,7 @@ if(isset($_POST['register']) && !empty($_POST['email'])){
     if(mysqli_query($conn, $query)){
         if ($role == 'teacher') {
             //redirect user to login page
-            header('Location: login.php');
+            header('Location: logout.php');
         } else { // $role == student
             //redirect user to login page
             header('Location: ' . $_SERVER['PHP_SELF']);

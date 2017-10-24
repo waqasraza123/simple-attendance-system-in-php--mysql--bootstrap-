@@ -26,12 +26,12 @@ if(isset($_POST['formData'])) {
     //print_r($searcharray);die;
     //print_r($_POST);
 
-        //for ($i = 0 ; $i < sizeof($searcharray) ; $i++){
-        //    setcookie("checkloop", $i);
-            $name = $searcharray['name'][0];
-            $email=   $searcharray['email'][0];
-            $class =  $searcharray['class'][0];
-            $present= $searcharray['present'][0];
+    for ($i = 0 ; $i < sizeof($searcharray) ; $i++){
+    //    setcookie("checkloop", $i);;
+        $name = $searcharray['name'][$i];
+        $email=   $searcharray['email'][$i];
+        $class =  $searcharray['class'][$i];
+        $present= $searcharray['present'][$i];
             if(isset($_COOKIE['sessionVal'])){
                 $sessionVal = $_COOKIE['sessionVal'];
             }
@@ -69,9 +69,8 @@ if(isset($_POST['formData'])) {
             if(mysqli_query($conn, $query)){
                 echo json_encode(array('status' => 'success', 'message' => 'Attendance added!'));
             } else{
-                echo json_encode(array('status' => 'error', 'message' => 'You have an error'));
-                //echo json_encode(array('status' => 'fail', 'message' => 'Error: ' . $query . '<br>' . mysqli_error($conn)));
+            echo json_encode(array('status' => 'error', 'message' => 'Error: ' . $query . '<br>' . mysqli_error($conn)));
             }
-        //}
+    }
     $conn->close();
 }

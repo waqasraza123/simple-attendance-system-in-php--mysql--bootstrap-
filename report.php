@@ -1,16 +1,17 @@
 <?php
-
-if(isset($_COOKIE['student']) && $_COOKIE['student']==1){
-
-}
-else{
-    die("<b>you can not access this page</b>");
-}
-
+$pageTitle = 'Attendance Report';
+include('header.php');
 require("db-connect.php");
-if(isset($_COOKIE['login'])){
-    $currentUser = $_COOKIE['currentUser'];
+if (isset($_COOKIE['teacher']) && $_COOKIE['teacher'] == 1 && isset($_COOKIE['login'])) {
+    // Nothing to do - just keep on truckin'.
+} else { // Not a teacher? You're out of here.
+    $conn->close();
+    echo 'Only teachers can view the Attendance Report.';
+    include('footer.php');
+    exit;
 }
+
+$currentUser = $_COOKIE['currentUser'];
 
 $currentUserId = (isset($_COOKIE['loginId']))? $_COOKIE['loginId'] : 1;
 
@@ -23,8 +24,6 @@ $studentAttendance =  (mysqli_num_rows($conn->query($studentAttendanceQuery)));
 $query = "select distinct fullname, email, class, session, isPresent from attendance join user on attendance.studentid = user.id join class on attendance.classid = class.id where user.email='".$currentUser."'";
 $result = $conn->query($query);
 
-$pageTitle = 'Attendance';
-include('header.php');
 ?>
 <table class="table table-striped">
     <thead>
