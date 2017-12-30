@@ -11,7 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li <?php echo $pageTitle=="Take Attendance"||$pageTitle=="Attendance" ? 'class="active"' : ''; ?>><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); ?>">Home</a></li>
+                <li <?php echo $pageTitle=="Take Attendance"||$pageTitle=="Attendance" ? 'class="active"' : ''; ?>><a href="<?php echo '//'.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']); ?>">Home</a></li>
                 <li <?php echo $pageTitle=="Register" ? 'class="active"' : ''; ?>><a href="register.php">Register</a></li>
                 <li <?php echo $pageTitle=="Classes" ? 'class="active"' : ''; ?>><a href="classes.php">Classes</a></li>
                 <li <?php echo $pageTitle=="Report" ? 'class="active"' : ''; ?>><a href="report.php">Report</a></li>
